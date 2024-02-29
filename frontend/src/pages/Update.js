@@ -29,9 +29,15 @@ const Update = () => {
     }, [id]); // Include id in the dependency array to fetch the task when id changes
 
     return (
-        <div className="Home">
-            <div className="tasks">
-                {task && <UpdateDetails key={task._id} task={task} />}
+        <div className="container">
+            <div className="row">
+                <div className="d-flex justify-content-center">
+                    <div className="col-md-4">
+                        
+                        {task && <UpdateDetails key={task._id} task={task} />}
+
+                    </div>
+                </div>
             </div>
         </div>
     );
