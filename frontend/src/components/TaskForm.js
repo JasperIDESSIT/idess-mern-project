@@ -19,6 +19,7 @@ const TaskForm = () => {
     ];
 
     const handleSubmit = async () => {
+
         const task = { title, content, tags: selectedTags };
     
         try {
@@ -90,7 +91,7 @@ const TaskForm = () => {
                 required
             />
 
-            <button className='btn btn-sm btn-success mt-2'>Add Task</button>
+            <button className='btn btn-sm btn-success mt-2' >Add Task</button>
         </form>
     );
 };
