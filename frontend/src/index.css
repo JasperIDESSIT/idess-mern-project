@@ -67,7 +67,15 @@ header a {
   color: #333;
 }
 
-/* new workout form */
+/* new task form */
+.create {
+  background: #dfdfdf;
+  border-radius: 4px;
+  padding: 1rem;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+  margin-top: 1rem;
+}
+
 label {
   display: block;
   margin-top: 10px;
@@ -81,7 +89,6 @@ input {
 }
 textarea {
   padding: 10px;
-  margin-top: 10px;
   margin-bottom: 20px;
   max-width: 20rem;
   min-width: 20rem;
@@ -116,7 +123,12 @@ input.error {
   display: flex;
   justify-content: center;
 }
-
+.update-form {
+  background: #dfdfdf;
+  border-radius: 4px;
+  padding: 1rem;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
 .update input {
   padding: 10px;
   margin-top: 10px;
@@ -154,6 +166,7 @@ input.error {
 
 /* Edit button */
 .link-button {
+  margin-top: 1rem;
   display: inline-block;
   padding: 8px 16px;
   background-color: #4CAF50;

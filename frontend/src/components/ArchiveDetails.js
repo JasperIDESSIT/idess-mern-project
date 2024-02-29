@@ -12,7 +12,15 @@ const ArchiveDetails = ({ task }) => {
     return (
         <div className="task-details">
             <h4>{task.title}</h4>
-            <p><strong>Days: </strong>{task.tags.join(', ')}</p>
+            <p style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
+                <strong>Days: </strong>
+                {task.tags.map((tag, index) => (
+                    <React.Fragment key={index}>
+                        {tag}
+                        {index !== task.tags.length - 1 && ', '}
+                    </React.Fragment>
+                ))}
+            </p>
             <p><strong>Content: </strong>{task.content}</p>
             <p>{formattedDate}</p>
             {/* <span className="">Update</span> */}

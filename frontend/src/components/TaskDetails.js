@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const TaskDetails = ({ task }) => {
@@ -10,31 +10,47 @@ const TaskDetails = ({ task }) => {
         day: 'numeric',
     });
 
+    const [archived, setArchived] = useState(false);
+
     const handleArchive = async () => {
         try {
             const response = await fetch(`/api/tasks/archive/${task._id}`, {
                 method: 'PATCH'
             });
             const json = await response.json();
-            // Handle response as needed
+
+            setArchived(true);
         } catch (error) {
             console.error('Error archiving task:', error);
         }
     };
 
+    if (archived) {
+        return null;
+    }
+
     return (
         <div className="task-details">
-            <h4>{task.title}</h4>
-            <p><strong>Days: </strong>{task.tags.join(', ')}</p>
-            <p><strong>Content: </strong>{task.content}</p>
             <p>{formattedDate}</p>
+            <h4>{task.title}</h4>
 
-            {/* Updated Link with task._id as a parameter */}
+            <p style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
+                <strong>Days: </strong>
+                {task.tags.map((tag, index) => (
+                    <React.Fragment key={index}>
+                        {tag}
+                        {index !== task.tags.length - 1 && ', '}
+                    </React.Fragment>
+                ))}
+            </p>
+
+            <p><strong>Content: </strong>{task.content}</p>
+
             <Link to={`/api/tasks/view/${task._id}`}>
                 <button className='link-button'>Edit</button>
             </Link>
 
-            <span className='no-background' onClick={handleArchive}>
+            <span className='no-background'>
                 <button className='delete-button' onClick={handleArchive}>Delete</button>
             </span>
         </div>

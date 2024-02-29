@@ -7,22 +7,17 @@ const TaskForm = () => {
     const [selectedTags, setSelectedTags] = useState([]);
 
     const options = [
-        { label: 'Weekdays', options: [
-            { value: 'monday', label: 'Monday' },
-            { value: 'tuesday', label: 'Tuesday' },
-            { value: 'wednesday', label: 'Wednesday' },
-            { value: 'thursday', label: 'Thursday' },
-            { value: 'friday', label: 'Friday' }
-        ]},
-        { label: 'Weekend', options: [
-            { value: 'saturday', label: 'Saturday' },
-            { value: 'sunday', label: 'Sunday' }
-        ]}
+        { value: 'sunday', label: 'Sunday' },
+        { value: 'monday', label: 'Monday' },
+        { value: 'tuesday', label: 'Tuesday' },
+        { value: 'wednesday', label: 'Wednesday' },
+        { value: 'thursday', label: 'Thursday' },
+        { value: 'friday', label: 'Friday' },
+        { value: 'saturday', label: 'Saturday' }
     ];
 
     const handleSubmit = async () => {
       
-
         const task = { title, content, tags: selectedTags };
 
         const response = await fetch('/api/tasks', {
@@ -38,6 +33,7 @@ const TaskForm = () => {
             setTitle('');
             setContent('');
             setSelectedTags([]);
+       
             console.log('New task added!');
         }
     };
@@ -50,7 +46,7 @@ const TaskForm = () => {
         <form className="create" onSubmit={handleSubmit}>
             <h3>Create Task</h3>
 
-            <label>Title</label>
+            <label>Title:</label>
             <input
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
@@ -60,19 +56,12 @@ const TaskForm = () => {
 
             <label>Days:</label>
             <Select
-                options={options.map(group => ({
-                    label: group.label,
-                    options: group.options.map(option => ({
-                        value: option.value,
-                        label: option.label
-                    }))
-                }))}
+                options={options}
                 isMulti
-                value={selectedTags}
-                onChange={handleTagChange} // Assign handleTagChange function to onChange
+                onChange={handleTagChange}
             />
 
-            <label>Content</label>
+            <label>Content:</label>
             <textarea
                 type="text"
                 onChange={(e) => setContent(e.target.value)}

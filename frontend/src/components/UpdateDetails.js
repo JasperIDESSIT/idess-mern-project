@@ -4,36 +4,33 @@ import Select from 'react-select';
 const UpdateDetails = ({ task, onUpdate }) => {
     const [title, setTitle] = useState(task.title || ''); // Initialize state with task title
     const [content, setContent] = useState(task.content || ''); // Initialize state with task content
-    const [selectedTags, setSelectedTags] = useState(task.tags || []);
+    const [selectedTags, setSelectedTags] = useState([]);
 
     const options = [
-        { label: 'Weekdays', options: [
-            { value: 'monday', label: 'Monday' },
-            { value: 'tuesday', label: 'Tuesday' },
-            { value: 'wednesday', label: 'Wednesday' },
-            { value: 'thursday', label: 'Thursday' },
-            { value: 'friday', label: 'Friday' }
-        ]},
-        { label: 'Weekend', options: [
-            { value: 'saturday', label: 'Saturday' },
-            { value: 'sunday', label: 'Sunday' }
-        ]}
+        { value: 'sunday', label: 'Sunday' },
+        { value: 'monday', label: 'Monday' },
+        { value: 'tuesday', label: 'Tuesday' },
+        { value: 'wednesday', label: 'Wednesday' },
+        { value: 'thursday', label: 'Thursday' },
+        { value: 'friday', label: 'Friday' },
+        { value: 'saturday', label: 'Saturday' }
     ];
 
-    // Function to handle tag change
+
     const handleTagChange = (selectedOptions) => {
-        setSelectedTags(selectedOptions); // Update selectedTags state
+        setSelectedTags(selectedOptions); 
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
 
         const updatedTask = { 
             ...task, title, content, selectedTags 
-        }; // Merge updated values with existing task
+        }; 
 
         try {
             const response = await fetch(`/api/tasks/update/${task._id}`, {
-                method: 'PATCH', // Use PATCH method to update existing task
+                method: 'PATCH', 
                 body: JSON.stringify(updatedTask),
                 headers: {
                     'Content-Type': 'application/json'
@@ -54,7 +51,7 @@ const UpdateDetails = ({ task, onUpdate }) => {
 
     return (
         <form className="update" onSubmit={handleSubmit}>
-            <div>
+            <div className='update-form'>
                 <h3>Edit Task</h3>
 
                 <label>Title</label>
@@ -65,19 +62,12 @@ const UpdateDetails = ({ task, onUpdate }) => {
                     required
                 />
 
-                <label>Days:</label>
+                {/* <label>Days:</label>
                 <Select
-                    options={options.map(group => ({
-                        label: group.label,
-                        options: group.options.map(option => ({
-                            value: option.value,
-                            label: option.label
-                        }))
-                    }))}
+                    options={options}
                     isMulti
-                    value={selectedTags}
-                    onChange={handleTagChange} // Assign handleTagChange function to onChange
-                />
+                    onChange={handleTagChange}
+                /> */}
 
                 <label>Content</label>
                 <textarea
@@ -87,7 +77,7 @@ const UpdateDetails = ({ task, onUpdate }) => {
                 >{content}</textarea>
 
                 <div className="button">
-                    <button type="submit">Save</button>
+                    <button >Save</button>
                 </div>
             </div>
         </form>
