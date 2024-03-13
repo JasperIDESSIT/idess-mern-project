@@ -32,13 +32,13 @@ const Archive = () => {
                 </header>
                 <div className='d-flex justify-content-center'>
                     <div className="col-md-6 mb-2">
-                        
-                            <div>
-                                {tasks && tasks.map((task) => (
-                                    <ArchiveDetails key={task._id} task={task}/>
-                                ))}
-                            </div>
-                        
+
+                        <div className="">
+                            {tasks && tasks.map((task) => (
+                                <ArchiveDetails key={task._id} task={task}/>
+                            ))}
+                        </div>
+            
                     </div>
                 </div>
             </div>

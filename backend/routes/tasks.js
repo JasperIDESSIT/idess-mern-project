@@ -25,8 +25,8 @@ const {
 // POST a new task
 router.post('/create-task', async (req, res) => {
     try {
-        const { title, content, tags } = req.body; // Removed 'status' field
-        const status = 'active'; // Set default status or modify as needed
+        const { title, content, tags } = req.body;
+        const status = 'active';
         const task = await createTask(title, content, status, tags);
         res.status(200).json({ success: 'Successfully created!' });
     } catch (error) {
@@ -67,9 +67,9 @@ router.get('/archive/', async (req, res) => {
 
 // GET single task
 router.get('/view/:id', async (req, res) => {
-    const taskId = req.params.id; // Extracting task ID from request parameters
+    const taskId = req.params.id; 
     try {
-        const task = await getTask(taskId); // Pass task ID to the getTask function
+        const task = await getTask(taskId);
         res.json(task);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch the task' });
@@ -77,7 +77,17 @@ router.get('/view/:id', async (req, res) => {
 });
 
 // DELETE a task
-router.delete('/:id', deleteTask);
+// router.delete('/:id', deleteTask);
+router.delete('/delete/:id', async (req, res) => {
+  const id = req.params.id;
+  try {
+    const result = await deleteTask(id);
+    res.status(200).json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting task:', error);
+    res.status(500).json({ error: 'Failed to delete task' });
+  }
+});
 
 // Archive a task instead of deleting
 // router.patch('/archive/:id', archiveTask);
@@ -91,9 +101,9 @@ router.patch('/archive/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to archive task' });
     }
 });
+
 // Set a task as active
 // router.patch('/active/:id', setActiveTask);
-
 router.patch('/active/:id', async (req, res) => {
     const taskId = req.params.id;
     try {
@@ -106,6 +116,23 @@ router.patch('/active/:id', async (req, res) => {
 });
 
 // UPDATE a task
-router.patch('/update/:id', updateTask);
+// router.patch('/update/:id', updateTask);
+router.patch('/update/:id', async (req, res) => {
+    const taskId = req.params.id;
+    const { title, content } = req.body; 
+
+    try {
+        const result = await updateTask(taskId, { title, content });
+        if (result) {
+            res.status(200).json({ success: 'Updated successfully' });
+        } else {
+            res.status(404).json({ error: 'No such task found' });
+        }
+    } catch (error) {
+        console.error('Error updating task:', error);
+        res.status(500).json({ error: 'Failed to update task' });
+    }
+});
+
 
 module.exports = router;

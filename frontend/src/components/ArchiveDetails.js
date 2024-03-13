@@ -12,6 +12,7 @@ const ArchiveDetails = ({ task }) => {
     });
 
     const [activate, setActiveTask] = useState(false);
+    const [deleted, setDeleted] = useState(false);
 
     const setActive = async () => {
         try {
@@ -19,6 +20,7 @@ const ArchiveDetails = ({ task }) => {
                 method: 'PATCH'
             });
             const json = await response.json();
+            console.log(json)
 
             Swal.fire({
                 icon: 'success',
@@ -36,6 +38,48 @@ const ArchiveDetails = ({ task }) => {
     };
 
     if (activate) {
+        return null;
+    }
+
+    const handleDelete = async () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this task!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    const response = await fetch(`/api/tasks/delete/${task._id}`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        setDeleted(true);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Task Deleted!',
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    } else {
+                        throw new Error('Failed to delete task');
+                    }
+                } catch (error) {
+                    console.error('Error deleting task:', error);
+                }
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Action canceled, do nothing
+            }
+        });
+    };
+    
+
+    if (deleted) {
         return null;
     }
 
@@ -59,7 +103,7 @@ const ArchiveDetails = ({ task }) => {
                 <p className='card-text mt-2'><strong>Content: </strong>{task.content}</p>
 
                 <button className='btn btn-sm btn-success' onClick={setActive}>Activate</button>
-                <button className='btn btn-sm btn-danger'>DELETE</button>
+                <button className='ms-3 btn btn-sm btn-danger' onClick={handleDelete}>DELETE</button>
                 {/* <div className='d-flex justify-content-start'>
                     <Link to={`/api/tasks/view/${task._id}`}>
                         <button className='btn btn-sm btn-secondary me-2'>Edit</button>

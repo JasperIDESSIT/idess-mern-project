@@ -11,7 +11,7 @@ const archiveTask = async (id) => {
     if (result.modifiedCount === 0) {
       throw new Error('No such task found');
     }
-    return result.modifiedCount; // Return the number of modified documents (should be 1)
+    return result.modifiedCount;
   } catch (error) {
     console.error('Error archiving task:', error);
     throw error;
@@ -32,7 +32,7 @@ const setActiveTask = async (id) => {
     if (result.modifiedCount === 0) { 
       throw new Error('No such task found');
     }
-    return result.modifiedCount; // Return the number of modified documents (should be 1)
+    return result.modifiedCount;
   } catch (error) {
     console.error('Error setting task as active:', error);
     throw error;
@@ -44,25 +44,27 @@ const setActiveTask = async (id) => {
 };
 
 // Update a task
-const updateTask = async (id, updatedTask) => {
+const updateTask = async (id, updatedFields) => {
   let client;
   try {
-    client = await connectToMongoDB();
-    const collection = await getCollection(client, 'tasks');
-    const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updatedTask });
-    if (result.modifiedCount === 0) {
-      throw new Error('No such task found');
-    }
-    return result.modifiedCount; // Return the number of modified documents (should be 1)
+      client = await connectToMongoDB();
+      const collection = await getCollection(client, 'tasks');
+      const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updatedFields });
+      if (result.modifiedCount === 0) {
+          throw new Error('No such task found');
+      }
+      return result.modifiedCount;
   } catch (error) {
-    console.error('Error updating task:', error);
-    throw error;
+      console.error('Error updating task:', error);
+      throw error;
   } finally {
-    if (client) {
-      client.close();
-    }
+      if (client) {
+          client.close();
+      }
   }
 };
+
+
 
 
 module.exports = {

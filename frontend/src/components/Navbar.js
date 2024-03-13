@@ -6,7 +6,7 @@ const Navbar = () => {
     return (
         <header>
 
-            <nav className="navbar navbar-expand-lg bg-light">
+            <nav className="navbar navbar-expand-lg bg-light border-bottom shadow">
                 <div className="container">
                
                         <h4 className="navbar-brand fw-bold">Task Tracker</h4>

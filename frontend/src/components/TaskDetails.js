@@ -20,7 +20,7 @@ const TaskDetails = ({ task }) => {
                 method: 'PATCH'
             });
             const json = await response.json();
-
+            console.log(json)
             setArchived(true);
         } catch (error) {
             console.error('Error archiving task:', error);
@@ -30,17 +30,24 @@ const TaskDetails = ({ task }) => {
     const handleDelete = () => {
         Swal.fire({
             title: 'Are you sure?',
-            text: 'You will not be able to recover this task!',
+            text: 'This task will be moved to Archives',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
                 handleArchive();
-                Swal.fire('Deleted!', 'Your task has been deleted.', 'success');
-            }
+                Swal.fire({
+                    title: 'Archived!',
+                    text: 'Task Archived',
+                    icon: 'success',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });            }
         });
     };
 
@@ -55,8 +62,9 @@ const TaskDetails = ({ task }) => {
 
                 <h4 className='card-title ml-2 fw-bold'>{task.title}</h4>
 
-                <p className='card-text' style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
-                    <strong>Days: </strong>
+                <strong>Day/s: </strong>
+                <p className='card-text text-capitalize' style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
+    
                     {task.tags.map((tag, index) => (
                         <React.Fragment key={index}>
                             {tag}

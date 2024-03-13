@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ const UpdateDetails = ({ task, onUpdate }) => {
     
             if (response.ok) {
                 console.log('Task updated successfully!');
-                console.log(updatedTask);
+                // console.log(updatedTask);
 
             } else {
                 console.error('Failed to update task');
@@ -40,7 +40,7 @@ const UpdateDetails = ({ task, onUpdate }) => {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000 // Timer for auto-close (in milliseconds)
+            timer: 3000
         });
     };    
     
@@ -77,8 +77,10 @@ const UpdateDetails = ({ task, onUpdate }) => {
                         id="content-input"
                         type="text"
                         onChange={(e) => setContent(e.target.value)}
+                        rows={6}
                         required
-                    >{content}</textarea>
+                        value={content}
+                    ></textarea>
                     <label htmlFor="content-input">Content</label>
                 </div>
             </div>
