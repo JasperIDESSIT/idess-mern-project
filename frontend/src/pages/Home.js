@@ -1,29 +1,35 @@
-import { useEffect, useState } from 'react'
+// Home.js
+
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// components
-import TaskDetails from '../components/TaskDetails'
-import TaskForm from '../components/TaskForm'
+import TaskForm from '../components/TaskForm';
+import TaskDetails from '../components/TaskDetails';
 
 const Home = () => {
-    const [tasks, setTasks] = useState(null)
+    const [tasks, setTasks] = useState(null);
 
-    // fetch all Active tasks
-    useEffect(() => {
-        const fetchActiveTasks = async () => {
-            const response = await fetch('/api/tasks/active/')
-            const json = await response.json()
-
+    // Define fetchActiveTasks function
+    const fetchActiveTasks = async () => {
+        try {
+            const response = await fetch('/api/tasks/active/');
             if (response.ok) {
-                setTasks(json)
+                const json = await response.json();
+                setTasks(json);
+            } else {
+                console.error('Failed to fetch active tasks');
             }
+        } catch (error) {
+            console.error('Error fetching active tasks:', error);
         }
+    };
 
-        fetchActiveTasks()
-    }, []) 
+    // Fetch all Active tasks
+    useEffect(() => {
+        fetchActiveTasks(); // Call fetchActiveTasks function
+    }, []);
 
-    return(
+    return (
         <div className="container">
-
             <header className='mt-2'>
                 <div className='card p-5 bg-success bg-gradient text-white bg-opacity-75'>
                     <h1 className='fw-bold text-white'>Active Tasks</h1>
@@ -38,13 +44,12 @@ const Home = () => {
                 </div>
                 <div className="col-md-4"> 
                     <div className='sticky-top pt-1'>
-                        <TaskForm />
+                        <TaskForm fetchActiveTasks={fetchActiveTasks} /> {/* Pass fetchActiveTasks function as a prop */}
                     </div>
                 </div>
-               
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

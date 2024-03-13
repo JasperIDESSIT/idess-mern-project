@@ -1,9 +1,11 @@
+// TaskForm.js
+
 import React, { useState } from 'react';
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'; // Import SweetAlert
 
-const TaskForm = () => {
+const TaskForm = ({ fetchActiveTasks }) => { // Accept fetchActiveTasks as a prop
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [selectedTags, setSelectedTags] = useState([]);
@@ -18,12 +20,13 @@ const TaskForm = () => {
         { value: 'saturday', label: 'Saturday' }
     ];
 
-    const handleSubmit = async () => {
-
+    const handleSubmit = async (event) => {
+        event.preventDefault(); // Prevent default form submission behavior
+        
         const task = { title, content, tags: selectedTags };
     
         try {
-            const response = await fetch('/api/tasks', {
+            const response = await fetch('/api/tasks/create-task', {
                 method: 'POST',
                 body: JSON.stringify(task),
                 headers: {
@@ -44,7 +47,10 @@ const TaskForm = () => {
                     timer: 3000
                 });
                 console.log('New task added!');
+
+                fetchActiveTasks(); // Call fetchActiveTasks function passed as prop
             }
+            
         } catch (error) {
             console.error('Error adding task:', error);
         }
@@ -59,7 +65,7 @@ const TaskForm = () => {
         <form className="card p-2 mt-2 shadow-sm bg-light bg-gradient" onSubmit={handleSubmit}>
             <h3>Create Task</h3>
 
-            <div class="form-floating">
+            <div className="form-floating">
                 <input
                     className='form-control'
                     type="text"
@@ -68,10 +74,10 @@ const TaskForm = () => {
                     value={title}
                     required
                 />
-                <label for="title-input">Title</label>
+                <label htmlFor="title-input">Title</label>
             </div>
 
-            <div class="form-floating mt-2">
+            <div className="form-floating mt-2">
                 <textarea
                     className='form-control'
                     id="content-input"
@@ -80,7 +86,7 @@ const TaskForm = () => {
                     value={content}
                     required
                 />
-                <label for="content-input">Content</label>
+                <label htmlFor="content-input">Content</label>
             </div>
 
             <label className='ms-2 small mt-2 text-muted'>Day/s</label>
@@ -91,7 +97,7 @@ const TaskForm = () => {
                 required
             />
 
-            <button className='btn btn-sm btn-success mt-2' >Add Task</button>
+            <button className='btn btn-sm btn-success mt-2' type="submit">Add Task</button>
         </form>
     );
 };

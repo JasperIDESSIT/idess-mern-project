@@ -1,38 +1,47 @@
 require('dotenv').config()
 
-const express = require('express')
-const mongoose = require('mongoose')
-const taskRoutes = require('./routes/tasks')
+const express = require('express');
+const { MongoClient } = require('mongodb');
+const taskRoutes = require('./routes/tasks');
 
-// express app
-const app = express()
+const uri = 'mongodb://localhost:4000';
 
-// middleware
-app.use(express.json())
+// for my express app
+const app = express();
+
+// for my middleware
+app.use(express.json());
 
 app.use((req, res, next) => {
-    console.log(req.path, req.method)
-    next()
-})
+    console.log(req.path, req.method);
+    next();
+});
 
 // routes
-app.use('/api/tasks', taskRoutes)
+app.use('/api/tasks', taskRoutes);
 
-// connect to mongodb
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => {
-        // port listener
-        app.listen(process.env.PORT, () => {
-            console.log('connected to db & listening on port 4000')
-        })
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+// connecting my backend to MongoDB
+async function connectToMongoDB() {
+    const client = new MongoClient(process.env.MONGO_URI);
+    await client.connect();
+    console.log('Connected to MongoDB');
+    return client;
+}
 
+async function startServer() {
+    try {
+        const client = await connectToMongoDB();
+            app.locals.db = client.db(); 
 
-// port listener
-// app.listen(4000, () => {
-//     console.log('listening on port 4000')
-// })
+        const port = process.env.PORT || 4000;
+        
+            app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
+        });
 
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+    }
+}
+
+startServer();

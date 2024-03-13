@@ -6,22 +6,22 @@ const Navbar = () => {
     return (
         <header>
 
-            <nav class="navbar navbar-expand-lg bg-light">
-                <div class="container">
+            <nav className="navbar navbar-expand-lg bg-light">
+                <div className="container">
                
-                        <h4 class="navbar-brand fw-bold">Task Tracker</h4>
+                        <h4 className="navbar-brand fw-bold">Task Tracker</h4>
                    
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
                             <Link className='active nav-link' to="/">
                                 <div>Active Tasks</div>
                             </Link>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <Link className='archive nav-link' to="/api/tasks/archive/">
                                 <div>Archived Tasks</div>
                             </Link>
