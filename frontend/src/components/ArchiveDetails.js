@@ -90,11 +90,10 @@ const ArchiveDetails = ({ task }) => {
 
                 <h4 className='card-title ml-2 fw-bold'>{task.title}</h4>
 
-                <p className='card-text' style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
-                    <strong>Days: </strong>
+                <p className='card-text text-capitalize' style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
                     {task.tags.map((tag, index) => (
                         <React.Fragment key={index}>
-                            {tag}
+                            {tag.value}
                             {index !== task.tags.length - 1 && ', '}
                         </React.Fragment>
                     ))}

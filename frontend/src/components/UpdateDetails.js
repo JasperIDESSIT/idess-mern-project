@@ -83,6 +83,10 @@ const UpdateDetails = ({ task, onUpdate }) => {
                     ></textarea>
                     <label htmlFor="content-input">Content</label>
                 </div>
+                <div className='form-floating mt-2'>
+
+                </div>
+
             </div>
             <div className='d-flex justify-content-center mt-2'>
                 <button className='btn btn-sm btn-success w-50' onClick={handleSave}>Save</button>

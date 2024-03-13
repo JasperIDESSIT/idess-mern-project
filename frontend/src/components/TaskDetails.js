@@ -64,14 +64,14 @@ const TaskDetails = ({ task }) => {
 
                 <strong>Day/s: </strong>
                 <p className='card-text text-capitalize' style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>
-    
                     {task.tags.map((tag, index) => (
                         <React.Fragment key={index}>
-                            {tag}
+                            {tag.value}
                             {index !== task.tags.length - 1 && ', '}
                         </React.Fragment>
                     ))}
                 </p>
+
 
                 <p className='card-text mt-2'><strong>Content: </strong>{task.content}</p>
 

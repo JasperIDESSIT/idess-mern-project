@@ -1,5 +1,3 @@
-// TaskForm.js
-
 import React, { useState } from "react";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -38,7 +36,7 @@ const TaskForm = ({ fetchActiveTasks }) => {
       if (response.ok) {
         setTitle("");
         setContent("");
-        // setSelectedTags([]);
+        setSelectedTags(null); // Clear selected options
         Swal.fire({
           icon: "success",
           title: "Task Added!",
@@ -50,8 +48,6 @@ const TaskForm = ({ fetchActiveTasks }) => {
         console.log("New task added!");
   
         fetchActiveTasks();
-
-        console.log(setSelectedTags)
       }
     } catch (error) {
       console.error("Error adding task:", error);
@@ -60,7 +56,7 @@ const TaskForm = ({ fetchActiveTasks }) => {
   
 
   const handleTagChange = (selectedOptions) => {
-    setSelectedTags(selectedOptions.map((option) => option.value));
+    setSelectedTags(selectedOptions);
   };
 
   return (
@@ -73,8 +69,8 @@ const TaskForm = ({ fetchActiveTasks }) => {
       <div className="form-floating">
         <input
           className="form-control"
-          type="text"
           id="title-input"
+          type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
           required
@@ -99,9 +95,10 @@ const TaskForm = ({ fetchActiveTasks }) => {
         options={options}
         isMulti
         onChange={handleTagChange}
+        value={selectedTags} // Set the value prop to selectedTags
         required
         closeMenuOnSelect={false}
-        />
+      />
 
       <button className="btn btn-sm btn-success mt-2" type="submit">
         Add Task
