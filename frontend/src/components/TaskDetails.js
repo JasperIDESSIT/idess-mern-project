@@ -5,8 +5,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TaskDetails = ({ task }) => {
     const [archived, setArchived] = useState(false);
-    // const [showModal, setShowModal] = useState(false); // New state for modal visibility
 
+    const formattedDate = new Date(task.createdAt).toLocaleString('en-PH', {
+        timeZone: 'Asia/Manila',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+        // second: 'numeric'
+    });
+    
     const handleArchive = async () => {
         try {
             const response = await fetch(`/api/tasks/archive/${task._id}`, {
@@ -52,6 +62,9 @@ const TaskDetails = ({ task }) => {
     return (
         <div className="card mb-2 shadow-sm bg-success bg-gradient text-dark bg-opacity-10">
             <div className='card-body'>
+
+               <p className='card-subtitle text-muted'>{formattedDate}</p>
+
                 <h4 className='card-title ml-2 fw-bold'>{task.title}</h4>
                 <strong>Day/s: </strong>
                 <p className='card-text text-capitalize' style={{ display: 'inline-block', margin: '0', whiteSpace: 'nowrap' }}>

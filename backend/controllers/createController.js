@@ -2,13 +2,13 @@ const { ObjectId } = require('mongodb');
 const { connectToMongoDB, getCollection } = require('./controller.js');
 
 // create a new task
-const createTask = async (title, content, status, tags) => {
+const createTask = async (title, content, status, tags, createdAt) => {
     let client;
     try {
       client = await connectToMongoDB();
       console.log('Connected to MongoDB');
         const collection = await getCollection(client, 'tasks');
-            const result = await collection.insertOne({ title, content, status, tags });
+            const result = await collection.insertOne({ title, content, status, tags, createdAt });
             // console.log('Task inserted:', result.ops[0]);
             console.log("Task Created")
             // return result.ops[0]; 

@@ -22,19 +22,32 @@ const {
   deleteTask,
 } = require('../controllers/deleteController');
 
+function getCurrentDateTime() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const hours = String(today.getHours()).padStart(2, '0');
+    const minutes = String(today.getMinutes()).padStart(2, '0');
+    const seconds = String(today.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 // POST a new task
+const dateToday = getCurrentDateTime();
+
 router.post('/create-task', async (req, res) => {
     try {
         const { title, content, tags } = req.body;
         const status = 'active';
-        const task = await createTask(title, content, status, tags);
+        const createdAt = dateToday;
+        const task = await createTask(title, content, status, tags, createdAt);
         res.status(200).json({ success: 'Successfully created!' });
     } catch (error) {
         console.error('Error creating task:', error);
         res.status(500).json({ error: 'Failed to create task' });
     }
 });
-
 // GET all tasks
 router.get('/', async (req, res) => {
     try {
@@ -49,6 +62,8 @@ router.get('/', async (req, res) => {
 router.get('/active/', async (req, res) => {
     try {
         const tasks = await getActiveTasks();
+        // Sort tasks by descending createdAt
+        tasks.sort((a, b) => b.createdAt - a.createdAt);
         res.json(tasks);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch active tasks' });

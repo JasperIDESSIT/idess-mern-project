@@ -3,13 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2'; // Import SweetAlert
 
 const ArchiveDetails = ({ task }) => {
-    // const formattedDate = new Date(task.createdAt).toLocaleString('en-PH', {
-    //     timeZone: 'Asia/Manila',
-    //     weekday: 'long',
-    //     year: 'numeric',
-    //     month: 'long',
-    //     day: 'numeric',
-    // });
+    const formattedDate = new Date(task.createdAt).toLocaleString('en-PH', {
+        timeZone: 'Asia/Manila',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric'
+        // second: 'numeric'
+    });
 
     const [activate, setActiveTask] = useState(false);
     const [deleted, setDeleted] = useState(false);
@@ -86,7 +89,7 @@ const ArchiveDetails = ({ task }) => {
     return (
         <div className="card mt-2 shadow-sm bg-danger bg-gradient p-2 text-dark bg-opacity-10">
             <div className='card-body'>
-                {/* <p className='card-subtitle text-muted'>{formattedDate}</p> */}
+                <p className='card-subtitle text-muted'>{formattedDate}</p>
 
                 <h4 className='card-title ml-2 fw-bold'>{task.title}</h4>
 
