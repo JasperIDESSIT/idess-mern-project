@@ -20,7 +20,6 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/tasks', taskRoutes);
 
-// connecting my backend to MongoDB
 async function connectToMongoDB() {
     const client = new MongoClient(process.env.MONGO_URI);
     await client.connect();

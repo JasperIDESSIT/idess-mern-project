@@ -1,7 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { connectToMongoDB, getCollection } = require('./controller.js');
 
-// get all tasks
 const getTasks = async () => {
   let client;
   try {
@@ -22,7 +21,6 @@ const getTasks = async () => {
   }
 };
 
-// get all tasks that are active
 const getActiveTasks = async () => {
   let client;
   try {
@@ -40,8 +38,6 @@ const getActiveTasks = async () => {
   }
 };
 
-
-// get all tasks that are archived
 const getArchiveTasks = async () => {
   let client;
   try {
@@ -59,7 +55,6 @@ const getArchiveTasks = async () => {
   }
 };
 
-// get a single task by ID
 const getTask = async (id) => {
   let client;
   try {

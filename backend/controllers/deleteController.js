@@ -1,7 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { connectToMongoDB, getCollection } = require('./controller.js');
 
-// Delete a task
 const deleteTask = async (id) => {
   let client;
   try {

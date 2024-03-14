@@ -35,7 +35,6 @@ router.post('/create-task', async (req, res) => {
     }
 });
 
-// GET all tasks
 router.get('/', async (req, res) => {
     try {
         const tasks = await getTasks();
@@ -45,19 +44,15 @@ router.get('/', async (req, res) => {
     }
 });
 
-// GET all ACTIVE tasks
 router.get('/active/', async (req, res) => {
     try {
         const tasks = await getActiveTasks();
-        // Sort tasks by descending createdAt
-        tasks.sort((a, b) => b.createdAt - a.createdAt);
         res.json(tasks);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch active tasks' });
     }
 });
 
-// GET all ARCHIVE tasks
 router.get('/archive/', async (req, res) => {
     try {
         const tasks = await getArchiveTasks();
@@ -67,7 +62,6 @@ router.get('/archive/', async (req, res) => {
     }
 });
 
-// GET single task
 router.get('/view/:id', async (req, res) => {
     const taskId = req.params.id; 
     try {
@@ -78,8 +72,6 @@ router.get('/view/:id', async (req, res) => {
     }
 });
 
-// DELETE a task
-// router.delete('/:id', deleteTask);
 router.delete('/delete/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -91,8 +83,6 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
-// Archive a task instead of deleting
-// router.patch('/archive/:id', archiveTask);
 router.patch('/archive/:id', async (req, res) => {
     const taskId = req.params.id;
     try {
@@ -104,8 +94,6 @@ router.patch('/archive/:id', async (req, res) => {
     }
 });
 
-// Set a task as active
-// router.patch('/active/:id', setActiveTask);
 router.patch('/active/:id', async (req, res) => {
     const taskId = req.params.id;
     try {
@@ -117,8 +105,6 @@ router.patch('/active/:id', async (req, res) => {
     }
 });
 
-// UPDATE a task
-// router.patch('/update/:id', updateTask);
 router.patch('/update/:id', async (req, res) => {
     const taskId = req.params.id;
     const { title, content } = req.body; 

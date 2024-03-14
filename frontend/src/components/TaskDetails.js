@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// import EditModal from '../modals/EditModal';
 
 const TaskDetails = ({ task }) => {
     const [archived, setArchived] = useState(false);
@@ -67,7 +65,7 @@ const TaskDetails = ({ task }) => {
     }
 
     return (
-        <div className="card mb-2 shadow-sm bg-success bg-gradient text-dark bg-opacity-10">
+        <div className="card mb-2 shadow-sm bg-success bg-gradient text-dark bg-opacity-10 mb-3">
             <div className='card-body'>
 
                <p className='card-subtitle text-muted'>{formattedDate}</p>
@@ -87,8 +85,6 @@ const TaskDetails = ({ task }) => {
                     <Link to={`/api/tasks/view/${task._id}`}>
                         <button className='btn btn-sm btn-secondary me-2'>Edit</button>
                     </Link>
-
-                    {/* <EditModal /> */}
 
                     <button className='btn btn-sm btn-danger' onClick={handleDelete}>Delete</button>
                 </div>

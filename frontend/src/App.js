@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// pages & components
 import Home from './pages/Home'
 import Archive from './pages/Archive'
 import Update from './pages/Update'
@@ -9,7 +9,7 @@ import Navbar from './components/Navbar'
 function App() {
   return (
 
-    <div className="App ">
+    <div className="App bg-light">
       <BrowserRouter>
 
         <Navbar />

@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// components
 import ArchiveDetails from '../components/ArchiveDetails'
 
 const Archive = () => {
     const [tasks, setTasks] = useState(null)
 
-    // fetch all Archived tasks
     useEffect(() => {
         const fetchArchiveTasks = async () => {
             const response = await fetch('/api/tasks/archive/')
@@ -25,7 +23,7 @@ const Archive = () => {
     return(
         <div className="container">
             <div className='row'>
-                <header className='mt-2'>
+                <header className='col-md-12 mt-2'>
                     <div className='card p-5 bg-success bg-gradient text-white bg-opacity-75'>
                         <h1 className='fw-bold text-white'>Archived Tasks</h1>
                     </div>

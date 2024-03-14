@@ -1,5 +1,3 @@
-// Home.js
-
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskForm from '../components/TaskForm';
@@ -8,7 +6,6 @@ import TaskDetails from '../components/TaskDetails';
 const Home = () => {
     const [tasks, setTasks] = useState(null);
 
-    // Define fetchActiveTasks function
     const fetchActiveTasks = async () => {
         try {
             const response = await fetch('/api/tasks/active/');
@@ -23,9 +20,8 @@ const Home = () => {
         }
     };
 
-    // Fetch all Active tasks
     useEffect(() => {
-        fetchActiveTasks(); // Call fetchActiveTasks function
+        fetchActiveTasks();
     }, []);
 
     return (

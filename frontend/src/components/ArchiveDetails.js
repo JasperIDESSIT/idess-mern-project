@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2';
 
 const ArchiveDetails = ({ task }) => {
     const formattedDate = new Date(task.createdAt).toLocaleString('en-PH', {

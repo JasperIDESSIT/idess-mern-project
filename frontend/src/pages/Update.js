@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams to access URL parameters
+import { useParams } from 'react-router-dom';
 
-// components
 import UpdateDetails from '../components/UpdateDetails';
 
 const Update = () => {
     const [task, setTask] = useState(null);
-    const { id } = useParams(); // Extract the ID from the URL parameter
+    const { id } = useParams();
 
-    // fetch the specific archived task based on the ID
     useEffect(() => {
         const fetchArchiveTask = async () => {
             try {
@@ -26,7 +24,7 @@ const Update = () => {
         };
 
         fetchArchiveTask();
-    }, [id]); // Include id in the dependency array to fetch the task when id changes
+    }, [id]);
 
     return (
         <div className="container">

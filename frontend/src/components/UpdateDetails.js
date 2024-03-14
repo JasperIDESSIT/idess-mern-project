@@ -23,7 +23,6 @@ const UpdateDetails = ({ task, onUpdate }) => {
     
             if (response.ok) {
                 console.log('Task updated successfully!');
-                // console.log(updatedTask);
 
             } else {
                 console.error('Failed to update task');

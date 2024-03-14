@@ -6,7 +6,6 @@ const dbName = process.env.DB_NAME;
 
 const connectToMongoDB = async () => {
   try {
-    // const client = new MongoClient(uri);
     const client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
 

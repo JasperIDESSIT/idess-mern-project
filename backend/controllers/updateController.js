@@ -1,7 +1,6 @@
 const { ObjectId } = require('mongodb');
 const { connectToMongoDB, getCollection } = require('./controller.js');
 
-// Archive a task instead of deleting
 const archiveTask = async (id) => {
   let client;
   try {
@@ -22,7 +21,6 @@ const archiveTask = async (id) => {
   }
 };
 
-// Set a task as Active
 const setActiveTask = async (id) => {
   let client;
   try {
@@ -43,7 +41,7 @@ const setActiveTask = async (id) => {
   }
 };
 
-// Update a task
+
 const updateTask = async (id, updatedFields) => {
   let client;
   try {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Swal from "sweetalert2"; // Import SweetAlert
+import Swal from "sweetalert2"; 
 
 const TaskForm = ({ fetchActiveTasks }) => {
-  // Accept fetchActiveTasks as a prop
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -45,7 +45,7 @@ const TaskForm = ({ fetchActiveTasks }) => {
       if (response.ok) {
         setTitle("");
         setContent("");
-        setSelectedTags([]); // Clear selected options
+        setSelectedTags([]);
         Swal.fire({
           icon: "success",
           title: "Task Added!",
@@ -109,7 +109,7 @@ const TaskForm = ({ fetchActiveTasks }) => {
         options={options}
         isMulti
         onChange={handleTagChange}
-        value={selectedTags} // Set the value prop to selectedTags
+        value={selectedTags}
         required
         closeMenuOnSelect={false}
       />
