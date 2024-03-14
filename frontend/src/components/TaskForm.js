@@ -113,10 +113,11 @@ const TaskForm = ({ fetchActiveTasks }) => {
         required
         closeMenuOnSelect={false}
       />
-
-      <button className="btn btn-sm btn-success mt-2" type="submit">
-        Add Task
-      </button>
+      <div className="d-flex justify-content-center">
+        <button className="btn btn-sm btn-success mt-2 w-50" type="submit">
+          Add Task
+        </button>
+      </div>
     </form>
   );
 };

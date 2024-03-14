@@ -81,7 +81,7 @@ const TaskDetails = ({ task }) => {
                     ))}
                 </p>
                 <p className='card-text mt-2'><strong>Content: </strong>{task.content}</p>
-                <div className='d-flex justify-content-start'>
+                <div className='d-flex justify-content-end'>
                     <Link to={`/api/tasks/view/${task._id}`}>
                         <button className='btn btn-sm btn-secondary me-2'>Edit</button>
                     </Link>
