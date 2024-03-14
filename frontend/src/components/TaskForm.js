@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2"; // Import SweetAlert
@@ -8,6 +8,15 @@ const TaskForm = ({ fetchActiveTasks }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
+  const [dateToday, setDateToday] = useState(new Date());
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setDateToday(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const options = [
     { value: "sunday", label: "Sunday" },
@@ -22,7 +31,7 @@ const TaskForm = ({ fetchActiveTasks }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    const task = { title, content, tags: selectedTags };
+    const task = { title, content, tags: selectedTags, createdAt: dateToday };
   
     try {
       const response = await fetch("/api/tasks/create-task", {
@@ -36,7 +45,7 @@ const TaskForm = ({ fetchActiveTasks }) => {
       if (response.ok) {
         setTitle("");
         setContent("");
-        setSelectedTags(null); // Clear selected options
+        setSelectedTags([]); // Clear selected options
         Swal.fire({
           icon: "success",
           title: "Task Added!",
@@ -44,6 +53,11 @@ const TaskForm = ({ fetchActiveTasks }) => {
           position: "top-end",
           showConfirmButton: false,
           timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
         });
         console.log("New task added!");
   

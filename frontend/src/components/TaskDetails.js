@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// import EditModal from '../modals/EditModal';
+
 const TaskDetails = ({ task }) => {
     const [archived, setArchived] = useState(false);
 
@@ -47,9 +49,14 @@ const TaskDetails = ({ task }) => {
                     text: 'Task Archived',
                     icon: 'success',
                     toast: true,
+                    timerProgressBar: true,
                     position: 'top-end',
                     showConfirmButton: false,
-                    timer: 3000
+                    timer: 3000,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                      }
                 });
             }
         });
@@ -80,29 +87,9 @@ const TaskDetails = ({ task }) => {
                     <Link to={`/api/tasks/view/${task._id}`}>
                         <button className='btn btn-sm btn-secondary me-2'>Edit</button>
                     </Link>
-                    {/* Button trigger modal */}
-                    {/* <button type="button" className="btn btn-primary" onClick={() => setShowModal(true)}>
-                        Edit Modal
-                    </button> */}
-                    {/* Modal */}
-                    {/* <div className="modal" tabIndex="-1" style={{ display: showModal ? 'block' : 'none' }}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Edit Task</h5>
-                                    <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-                                </div>
-                                <div className="modal-body">
-                                   
-                                    <p>Modal body text goes here.</p>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
+
+                    {/* <EditModal /> */}
+
                     <button className='btn btn-sm btn-danger' onClick={handleDelete}>Delete</button>
                 </div>
             </div>
